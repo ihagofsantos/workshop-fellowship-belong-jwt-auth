@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { Role } from 'src/auth/decorators/role.enum';
 import { CryptoService } from 'src/crypto/crypto.service';
 
 export type User = {
@@ -6,7 +7,7 @@ export type User = {
   name: string;
   username: string;
   password?: string;
-  role: string;
+  role: Role;
 };
 
 @Injectable()
@@ -20,14 +21,14 @@ export class UsersRepository {
         name: 'Ihago 1',
         username: 'ihago1',
         password: this.cryptoService.hash('1234'), // Ao salvar no banco, a senha deve ser sempre criptografada.
-        role: 'admin',
+        role: Role.Admin,
       },
       {
         id: 2,
         name: 'Ihago 2',
         username: 'ihago2',
         password: this.cryptoService.hash('1234'), // Ao salvar no banco, a senha deve ser sempre criptografada.
-        role: 'user',
+        role: Role.User,
       },
     ];
   }
